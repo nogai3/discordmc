@@ -1,4 +1,25 @@
 {
-  "settings.open": "Открыть настройки Discord",
-  "settings.name": "Панель активности Discord"
+  "settings.name": "Настройки Discord RPC",
+
+  "settings.appname": "Имя приложения",
+  "settings.bottomline": "Вторая строка",
+  "settings.custombottomline": "Пользовательская вторая строка",
+
+  "settings.button1.label": "Текст на кнопке 1",
+  "settings.button1.url": "URL на кнопке 1",
+  "settings.button2.label": "Текст на кнопке 2",
+  "settings.button2.url": "URL на кнопке 2",
+
+  "settings.button.save": "Сохранить",
+  "settings.button.cancel": "Выйти",
+  "settings.button.reset": "Сбросить настройки",
+
+  "settings.txt.appname": "Имена приложения",
+  "settings.txt.bottomline": "Вторая строка",
+  "settings.txt.buttons": "Кнопки",
+  "settings.txt.icon": "Иконка",
+
+  "settings.worldname": "Имя мира",
+  "settings.gameversion": "Версия игры",
+  "settings.custom": "Свой вариант"
 }

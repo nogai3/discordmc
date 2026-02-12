@@ -1,0 +1,13 @@
+[discord]
+	#RPC application name
+	appName = "Minecraft {version}"
+	#Bottom line mode
+	#Allowed Values: WORLD_NAME, GAME_VERSION, CUSTOM
+	bottomLineMode = "WORLD_NAME"
+	#Customn bottom line if mode=CUSTOM
+	bottomLineCustom = "MyServer!"
+	button1Label = "Github"
+	button1Url = "https://github.com/nogai3"
+	button2Label = "Modrinth"
+	button2Url = "htts://modrinth.com/nogai3"
+	iconId = "discord:gui/discord/icons/default"

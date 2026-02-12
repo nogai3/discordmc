@@ -10,7 +10,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.List;
@@ -30,6 +30,8 @@ public class SettingsScreen extends Screen {
 
     private Button saveBtn;
 
+    private DiscordClientConfig.BottomLineMode lastMode;
+
     public SettingsScreen(Screen parent) {
         super(Component.translatable("settings.name"));
         this.parent = parent;
@@ -42,21 +44,24 @@ public class SettingsScreen extends Screen {
         int w = 260;
         int h = 20;
 
-        this.addRenderableWidget(Button.builder(Component.literal(""), b -> {}).bounds(0,0,0,0).build());
         this.appNameBox = new EditBox(this.font, cx - w/2, y, w, h, Component.translatable("settings.appname"));
         this.appNameBox.setValue(DiscordClientConfig.APP_NAME.get());
         this.addRenderableWidget(appNameBox);
 
         y += 28;
 
-        this.bottomModeBtn = CycleButton.<DiscordClientConfig.BottomLineMode>builder(SettingsScreen::modeText, DiscordClientConfig.BOTTOM_LINE_MODE.get())
+        this.bottomModeBtn = CycleButton.<DiscordClientConfig.BottomLineMode>builder(SettingsScreen::modeText)
                 .withValues(DiscordClientConfig.BottomLineMode.values())
+                .withInitialValue(DiscordClientConfig.BOTTOM_LINE_MODE.get()) // <-- важно
                 .create(cx - w/2, y, 140, h, Component.translatable("settings.bottomline"));
         this.addRenderableWidget(this.bottomModeBtn);
 
         this.bottomCustomBox = new EditBox(this.font, cx - w/2 + 150, y, w - 150, h, Component.translatable("settings.custombottomline"));
         this.bottomCustomBox.setValue(DiscordClientConfig.BOTTOM_LINE_CUSTOM.get());
         this.addRenderableWidget(this.bottomCustomBox);
+
+        this.lastMode = this.bottomModeBtn.getValue();
+        updateEnabledStates();
 
         y += 28;
 
@@ -80,8 +85,8 @@ public class SettingsScreen extends Screen {
 
         y += 30;
 
-        List<Identifier> icons = IconPickerWidget.scanIcons(Discord.MOD_ID, "textures/gui/discord/icons");
-        this.iconPicker = new IconPickerWidget(cx - w/2, y, w, 56, icons, Identifier.tryParse(DiscordClientConfig.ICON_ID.get()));
+        List<ResourceLocation> icons = IconPickerWidget.scanIcons(Discord.MOD_ID, "textures/gui/discord/icons");
+        this.iconPicker = new IconPickerWidget(cx - w/2, y, w, 56, icons, ResourceLocation.tryParse(DiscordClientConfig.ICON_ID.get()));
         this.addRenderableWidget(this.iconPicker);
 
         y += 70;
@@ -104,21 +109,21 @@ public class SettingsScreen extends Screen {
     @Override
     public void tick() {
         super.tick();
-        /*this.appNameBox.tick();
-        this.bottomCustomBox.tick();
-        this.btn1LabelBox.tick();
-        this.btn1UrlBox.tick();
-        this.btn2LabelBox.tick();
-        this.btn2UrlBox.tick();*/
-
-        updateEnabledStates();
+        var now = this.bottomModeBtn.getValue();
+        if (now != lastMode) {
+            lastMode = now;
+            updateEnabledStates();
+        }
         updateSaveEnabled();
     }
 
     private void updateEnabledStates() {
         boolean custom = this.bottomModeBtn.getValue() == DiscordClientConfig.BottomLineMode.CUSTOM;
+
         this.bottomCustomBox.setEditable(custom);
-        this.bottomCustomBox.setVisible(custom);
+        if (!custom && this.bottomCustomBox.isFocused()) {
+            this.setFocused(this.bottomModeBtn);
+        }
     }
 
     private void updateSaveEnabled() {
@@ -175,7 +180,7 @@ public class SettingsScreen extends Screen {
         this.btn2LabelBox.setValue("Modrinth");
         this.btn2UrlBox.setValue("https://modrinth.com/nogai3");
 
-        this.iconPicker.setSelected(Identifier.tryParse("discord:gui/discord/icons/default"));
+        this.iconPicker.setSelected(ResourceLocation.tryParse("discord:gui/discord/icons/default"));
     }
 
     private static <T> void set(ForgeConfigSpec.ConfigValue<T> v, T value) {
