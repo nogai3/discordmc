@@ -5,8 +5,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.client.settings.KeyConflictContext;
 
-import java.awt.event.KeyEvent;
-
 public class Keybinds {
     public static final Keybinds INSTANCE = new Keybinds();
 
