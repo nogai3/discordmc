@@ -1,0 +1,142 @@
+---- Minecraft Crash Report ----
+// Oops.
+
+Time: 2026-02-11 23:03:16
+Description: Mod loading error has occurred
+
+java.lang.Exception: Mod Loading has failed
+	at TRANSFORMER/net.minecraftforge.forge@61.0.8/net.minecraftforge.logging.CrashReportExtender.dumpModLoadingCrashReport(CrashReportExtender.java:49) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@61.0.8/net.minecraftforge.client.loading.ClientModLoader.completeModLoading(ClientModLoader.java:112) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.lambda$new$7(Minecraft.java:666) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.util.Util.ifElse(Util.java:636) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.lambda$new$8(Minecraft.java:659) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.gui.screens.LoadingOverlay.tick(LoadingOverlay.java:137) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.tick(Minecraft.java:1821) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.runTick(Minecraft.java:1273) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.run(Minecraft.java:893) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.main.Main.main(Main.java:223) ~[forge-1.21.11-61.0.8_mapped_official_1.21.11-recomp.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@1.21.11-61.0.8/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:96) ~[fmlloader-1.21.11-61.0.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@1.21.11-61.0.8/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.lambda$makeService$0(CommonLaunchHandler.java:79) ~[fmlloader-1.21.11-61.0.8.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.4/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:77) [modlauncher-10.2.4.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.4/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:97) [modlauncher-10.2.4.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.4/cpw.mods.modlauncher.Launcher.run(Launcher.java:116) [modlauncher-10.2.4.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.4/cpw.mods.modlauncher.Launcher.main(Launcher.java:75) [modlauncher-10.2.4.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.4/cpw.mods.modlauncher.BootstrapEntry.main(BootstrapEntry.java:17) [modlauncher-10.2.4.jar!/:?]
+	at net.minecraftforge.bootstrap@2.1.7/net.minecraftforge.bootstrap.Bootstrap.moduleMain(Bootstrap.java:188) [bootstrap-2.1.8.jar!/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at net.minecraftforge.bootstrap.Bootstrap.bootstrapMain(Bootstrap.java:133) [bootstrap-2.1.8.jar:2.1.8]
+	at net.minecraftforge.bootstrap.Bootstrap.start(Bootstrap.java:53) [bootstrap-2.1.8.jar:2.1.8]
+	at net.minecraftforge.bootstrap.ForgeBootstrap.main(ForgeBootstrap.java:19) [bootstrap-2.1.8.jar:2.1.8]
+Transformer Audit:
+  net.minecraft.client.Minecraft
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraft.client.gui.screens.LoadingOverlay
+    REASON: classloading
+  net.minecraft.client.main.Main
+    REASON: classloading
+  net.minecraft.util.Util
+    REASON: classloading
+  net.minecraftforge.client.loading.ClientModLoader
+    REASON: classloading
+  net.minecraftforge.logging.CrashReportExtender
+    REASON: classloading
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Suspected Mods: NONE
+Stacktrace:
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.internal.BusGroupImpl.createEventBus(BusGroupImpl.java:90) ~[eventbus-7.0-beta.12.jar!/:7.0-beta.12]
+Transformer Audit:
+-- MOD discord --
+Details:
+	Mod File: /home/glackus/projects/test/build/sourcesSets/main/
+	Failure message: discord (discord) has failed to load correctly
+		java.lang.IllegalArgumentException: BusGroup "modBusFordiscord" requires all events on it to inherit from interface net.minecraftforge.fml.event.IModBusEvent but class net.minecraftforge.client.event.RegisterKeyMappingsEvent doesn't.
+	Mod Version: 1.0-TEST
+	Mod Issue URL: NOT PROVIDED
+	Exception message: java.lang.IllegalArgumentException: BusGroup "modBusFordiscord" requires all events on it to inherit from interface net.minecraftforge.fml.event.IModBusEvent but class net.minecraftforge.client.event.RegisterKeyMappingsEvent doesn't.
+Stacktrace:
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.internal.BusGroupImpl.createEventBus(BusGroupImpl.java:90) ~[eventbus-7.0-beta.12.jar!/:7.0-beta.12]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.internal.BusGroupImpl.getOrCreateEventBus(BusGroupImpl.java:145) ~[eventbus-7.0-beta.12.jar!/:7.0-beta.12]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.api.bus.EventBus.create(EventBus.java:96) ~[eventbus-7.0-beta.12.jar!/:7.0-beta.12]
+	at LAYER PLUGIN/net.minecraftforge.javafmlmod@1.21.11-61.0.8/net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber$EventBusSubscriberLogic.registerListener(AutomaticEventSubscriber.java:312) ~[javafmllanguage-1.21.11-61.0.8.jar!/:61.0.8]
+	at LAYER PLUGIN/net.minecraftforge.javafmlmod@1.21.11-61.0.8/net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber$EventBusSubscriberLogic.registerLenient(AutomaticEventSubscriber.java:175) ~[javafmllanguage-1.21.11-61.0.8.jar!/:61.0.8]
+	at LAYER PLUGIN/net.minecraftforge.javafmlmod@1.21.11-61.0.8/net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber$EventBusSubscriberLogic.register(AutomaticEventSubscriber.java:138) ~[javafmllanguage-1.21.11-61.0.8.jar!/:61.0.8]
+	at LAYER PLUGIN/net.minecraftforge.javafmlmod@1.21.11-61.0.8/net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber.inject(AutomaticEventSubscriber.java:95) ~[javafmllanguage-1.21.11-61.0.8.jar!/:61.0.8]
+	at LAYER PLUGIN/net.minecraftforge.javafmlmod@1.21.11-61.0.8/net.minecraftforge.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:152) ~[javafmllanguage-1.21.11-61.0.8.jar!/:61.0.8]
+	at LAYER PLUGIN/net.minecraftforge.fmlcore@1.21.11-61.0.8/net.minecraftforge.fml.ModStateTransitionHelper.lambda$addCompletableFutureTaskForModDispatch$4(ModStateTransitionHelper.java:120) ~[fmlcore-1.21.11-61.0.8.jar!/:1.0]
+	at java.base/java.util.concurrent.CompletableFuture$UniRun.tryFire(CompletableFuture.java:787) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:483) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188) ~[?:?]
+Transformer Audit:
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.11
+	Minecraft Version ID: 1.21.11
+	Operating System: Linux (amd64) version 6.18.6-arch1-1
+	Java Version: 21.0.9, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Microsoft
+	Memory: 530247200 bytes (505 MiB) / 905969664 bytes (864 MiB) up to 4173332480 bytes (3980 MiB)
+	CPUs: 12
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Xeon(R) CPU E5-2430 0 @ 2.20GHz
+	Identifier: Intel64 Family 6 Model 45 Stepping 7
+	Microarchitecture: Sandy Bridge (Server)
+	Frequency (GHz): 2.20
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: Ellesmere [Radeon RX 470/480/570/570X/580/580X/590]
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #0 VRAM (MiB): 258.00
+	Graphics card #0 deviceId: 0x67df
+	Graphics card #0 versionInfo: unknown
+	Virtual memory max (MiB): 7958.55
+	Virtual memory used (MiB): 10738.28
+	Swap memory total (MiB): 0.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 7953.24, total: 7958.55
+	Space in storage for workdir (MiB): available: 24872.82, total: 111850.14
+	JVM Flags: 0 total; 
+	Debug Flags: 0 total; 
+	ModLauncher: 10.2.4
+	ModLauncher launch target: forge_userdev_client
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/ slf4jfixer PLUGINSERVICE 
+		/ runtimedistcleaner PLUGINSERVICE 
+		/ runtime_enum_extender PLUGINSERVICE 
+		/ capability_token_subclass PLUGINSERVICE 
+		/ accesstransformer PLUGINSERVICE 
+		/ mixin PLUGINSERVICE 
+		/ fml TRANSFORMATIONSERVICE 
+		/ forge TRANSFORMATIONSERVICE 
+		/ mixin TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		lowcodefml@61
+		minecraft@1.0
+		javafml@61.0.8
+	Mod List: 
+		union:/home/glackus/.gradle/caches/forge_gradle/mi|Minecraft                     |minecraft                     |1.21.11             |COMMON_SET|Manifest: NOSIGNATURE
+		/home/glackus/projects/test/build/sourcesSets/main|discord                       |discord                       |1.0-TEST            |ERROR     |Manifest: NOSIGNATURE
+		union:/home/glackus/.gradle/caches/forge_gradle/mi|Forge                         |forge                         |61.0.8              |COMMON_SET|Manifest: NOSIGNATURE
+	Crash Report UUID: dc6da319-b57a-48d1-a099-3bf8e9ef51ad
+	FML: 61.0
+	Forge: net.minecraftforge:61.0.8

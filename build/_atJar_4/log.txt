@@ -1,0 +1,7 @@
+Java Launcher: /home/glackus/.jdks/ms-21.0.9/bin/java
+Arguments: '--inJar, /home/glackus/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21.11-61.0.8/forge-1.21.11-61.0.8-injected.jar, --outJar, /home/glackus/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21.11-61.0.8_mapped_official_1.21.11/forge-1.21.11-61.0.8_mapped_official_1.21.11.jar, --logFile, accesstransform.log, --atFile, /home/glackus/projects/test/build/_atJar_4/parent_at.cfg'
+Classpath:
+ - /home/glackus/.gradle/caches/forge_gradle/maven_downloader/net/minecraftforge/accesstransformers/8.2.1/accesstransformers-8.2.1-fatjar.jar
+Working directory: /home/glackus/projects/test/build/_atJar_4
+Main class: net.minecraftforge.accesstransformer.TransformerProcessor
+====================================
