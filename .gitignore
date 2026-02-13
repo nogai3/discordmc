@@ -16,5 +16,6 @@
 
 # Folders
 run/
+build/
 .gradle/
 .idea/
