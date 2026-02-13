@@ -111,21 +111,25 @@ public class SettingsScreen extends Screen {
             case CUSTOM -> bottomCustomBox.getValue();
             case WORLD_NAME -> {
                 var mc =  Minecraft.getInstance();
-                if (mc.level != null) yield
-                        "Playing in world: " +
-                        mc.getSingleplayerServer().getWorldData().getLevelName() +
-                        " | Dimension: " +
-                        switch(mc.level.dimension().location().toString()) {
-                            case "minecraft:overworld" -> "Overworld";
-                            case "minecraft:the_nether" -> "The Nether";
-                            case "minecraft:the_end" -> "The End.";
-                            default -> "";
-                        };
-                yield "In world";
+                if (mc.level != null && mc.getSingleplayerServer() != null) {
+                    yield "Playing in world: " +
+                            mc.getSingleplayerServer().getWorldData().getLevelName() +
+                            " | Dimension: " + parseDimension(mc);
+                }
+                yield "Main menu";
             }
             case GAME_VERSION -> {
                 yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + this.minecraft.getLaunchedVersion() + ")";
             }
+        };
+    }
+
+    private static String parseDimension(Minecraft mc) {
+        return switch (mc.level.dimension().location().toString()) {
+            case "minecraft:overworld" -> "Overworld";
+            case "minecraft:the_nether" -> "The Nether";
+            case "minecraft:the_end" -> "The End.";
+            default -> "";
         };
     }
 

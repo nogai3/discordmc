@@ -1,4 +1,0 @@
-/time set 1000
-/kill glackus
-/kill Dev
-/tp Dev nether

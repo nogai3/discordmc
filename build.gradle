@@ -2,6 +2,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 
@@ -152,10 +153,19 @@ dependencies {
 
     // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-    implementation "com.google.code.gson:gson:2.8.9"
     implementation "org.json:json:20251224"
     implementation "com.kohlschutter.junixsocket:junixsocket-core:2.10.1"
     runtimeOnly   "com.kohlschutter.junixsocket:junixsocket-native-common:2.10.1"
+}
+
+shadowJar {
+    archiveClassifier.set('')
+
+    dependencies {
+        include(dependency("org.json:json:.*"))
+        include(dependency("com.kohlschutter.junixsocket:junixsocket-core:.*"))
+        include(dependency("com.kohlschutter.junixsocket:junixsocket-native-common:.*"))
+    }
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -202,3 +212,4 @@ sourceSets.each {
     it.output.resourcesDir = dir
     it.java.destinationDirectory = dir
 }
+build.dependsOn(tasks.shadowJar)
