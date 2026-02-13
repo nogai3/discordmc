@@ -54,16 +54,19 @@ public class ClientModHandler {
     }
 
     private static String buildBottomLine() {
+        mc = Minecraft.getInstance();
         return switch (DiscordClientConfig.BOTTOM_LINE_MODE.get()) {
             case CUSTOM -> DiscordClientConfig.BOTTOM_LINE_CUSTOM.get();
             case WORLD_NAME -> {
-                mc = Minecraft.getInstance();
                 if (mc.level != null && mc.getSingleplayerServer() != null) {
                     yield "Playing in world: " +
                             mc.getSingleplayerServer().getWorldData().getLevelName() +
                             " | Dimension: " + parseDimension(mc);
                 }
                 yield "Main menu";
+            }
+            case PLAYER_NAME -> {
+                yield mc.player.getGameProfile().getName();
             }
             case GAME_VERSION -> {
                 yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + mc.getLaunchedVersion() + ")";

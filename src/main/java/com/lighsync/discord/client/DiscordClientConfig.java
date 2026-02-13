@@ -49,6 +49,7 @@ public class DiscordClientConfig {
     public enum BottomLineMode {
         WORLD_NAME,
         GAME_VERSION,
+        PLAYER_NAME,
         CUSTOM
     }
 }

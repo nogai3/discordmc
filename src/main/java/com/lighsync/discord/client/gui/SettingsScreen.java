@@ -107,10 +107,10 @@ public class SettingsScreen extends Screen {
 
     private String buildBottomLine() {
         var mode =  bottomModeBtn.getValue();
+        var mc =  Minecraft.getInstance();
         return switch (mode) {
             case CUSTOM -> bottomCustomBox.getValue();
             case WORLD_NAME -> {
-                var mc =  Minecraft.getInstance();
                 if (mc.level != null && mc.getSingleplayerServer() != null) {
                     yield "Playing in world: " +
                             mc.getSingleplayerServer().getWorldData().getLevelName() +
@@ -118,8 +118,11 @@ public class SettingsScreen extends Screen {
                 }
                 yield "Main menu";
             }
+            case PLAYER_NAME -> {
+                yield mc.player.getGameProfile().getName();
+            }
             case GAME_VERSION -> {
-                yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + this.minecraft.getLaunchedVersion() + ")";
+                yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + mc.getLaunchedVersion() + ")";
             }
         };
     }
@@ -137,6 +140,7 @@ public class SettingsScreen extends Screen {
         return switch (m) {
             case WORLD_NAME -> Component.translatable("settings.worldname");
             case GAME_VERSION -> Component.translatable("settings.gameversion");
+            case PLAYER_NAME -> Component.translatable("settings.playername");
             case CUSTOM -> Component.translatable("settings.custom");
         };
     }
