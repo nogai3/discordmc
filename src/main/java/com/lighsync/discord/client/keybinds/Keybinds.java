@@ -12,8 +12,8 @@ public class Keybinds {
 
     public final KeyMapping OPEN_SETTINGS = new KeyMapping(
             "key." + Discord.MOD_ID + ".open_settings",
-            InputConstants.Type.SCANCODE,
-            InputConstants.KEY_0,
+            InputConstants.Type.KEYSYM,
+            InputConstants.KEY_M,
             KeyMapping.CATEGORY_GAMEPLAY
     );
 }

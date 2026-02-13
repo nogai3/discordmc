@@ -1,8 +1,8 @@
-Java Launcher: C:\Users\glackus\.jdks\ms-21.0.9\bin\java.exe
+Java Launcher: C:\Users\glackus\.jdks\ms-21.0.10\bin\java.exe
 Arguments: '--clean, C:\Users\glackus\.gradle\caches\forge_gradle\mcp_repo\net\minecraft\joined\1.21.1-20240808.132146\joined-1.21.1-20240808.132146-srg.jar, --output, C:\Users\glackus\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.21.1-52.1.10\forge-1.21.1-52.1.10-binpatched.jar, --apply, C:\Users\glackus\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.21.1-52.1.10\forge-1.21.1-52.1.10-binpatches.lzma'
 Classpath:
  - C:\Users\glackus\.gradle\caches\forge_gradle\maven_downloader\net\minecraftforge\binarypatcher\1.2.0\binarypatcher-1.2.0-fatjar.jar
-Working directory: C:\Users\glackus\IdeaProjects\untitled3\build\_applyBinpatches_2
+Working directory: D:\IdeaProjects\untitled3\build\_applyBinpatches_2
 Main class: net.minecraftforge.binarypatcher.ConsoleTool
 ====================================
 Applying: 

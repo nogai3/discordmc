@@ -26,5 +26,10 @@
       <option name="name" value="MavenRepo" />
       <option name="url" value="https://repo.maven.apache.org/maven2/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="meteor-maven" />
+      <option name="name" value="meteor-maven" />
+      <option name="url" value="https://maven.meteordev.org/releases" />
+    </remote-repository>
   </component>
 </project>

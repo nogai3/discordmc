@@ -82,7 +82,7 @@ minecraft {
         client {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
-            args '--username glackus'
+            args '--username glackus --password glackus228*'
         }
 
         server {
@@ -119,6 +119,12 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    mavenCentral()
+
+    maven {
+        name = "meteor-maven"
+        url = "https://maven.meteordev.org/releases"
+    }
 }
 
 dependencies {
@@ -146,6 +152,7 @@ dependencies {
 
     // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    implementation "com.google.code.gson:gson:2.8.9"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

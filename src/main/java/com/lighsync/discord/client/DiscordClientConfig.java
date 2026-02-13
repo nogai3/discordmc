@@ -1,6 +1,7 @@
 package com.lighsync.discord.client;
 
 import com.lighsync.discord.Discord;
+import net.minecraft.SharedConstants;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class DiscordClientConfig {
@@ -24,7 +25,7 @@ public class DiscordClientConfig {
         b.push(Discord.MOD_ID);
 
         APP_NAME = b.comment("RPC application name")
-                .define("appName", "Minecraft {version}");
+                .define("appName", "Minecraft " + Discord.GAME_VERSION);
 
         BOTTOM_LINE_MODE = b.comment("Bottom line mode")
                 .defineEnum("bottomLineMode", BottomLineMode.WORLD_NAME);
@@ -36,7 +37,7 @@ public class DiscordClientConfig {
         BUTTON_1_URL =      b.define("button1Url", "https://github.com/nogai3");
 
         BUTTON_2_LABEL =    b.define("button2Label", "Modrinth");
-        BUTTON_2_URL =      b.define("button2Url", "htts://modrinth.com/nogai3");
+        BUTTON_2_URL =      b.define("button2Url", "https://modrinth.com/nogai3");
 
         ICON_ID = b.define("iconId","discord:gui/discord/icons/default");
 
