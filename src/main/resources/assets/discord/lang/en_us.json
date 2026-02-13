@@ -21,5 +21,10 @@
 
   "settings.worldname": "World name",
   "settings.gameversion": "Game version",
-  "settings.custom": "Custom"
+  "settings.custom": "Custom",
+
+  "key.discord.open_settings": "Open Discord RPC Settings",
+
+  "game.playing_in_world": "Playing in world: ",
+  "game.world_dimension": " | Dimension: "
 }

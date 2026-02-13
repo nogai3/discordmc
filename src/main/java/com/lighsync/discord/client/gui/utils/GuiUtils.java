@@ -1,4 +1,4 @@
-package com.lighsync.discord.client.utils;
+package com.lighsync.discord.client.gui.utils;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -9,12 +9,11 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import org.apache.commons.compress.utils.Lists;
-import org.joml.Matrix3x2fStack;
 
 import java.util.List;
 
 public class GuiUtils {
-    public static void drawStringShadow(GuiGraphics gui, Font font, String string, int x, int y, int color, int color2) {
+    public static void drawStringShadow(GuiGraphics gui,Font font, String string, int x, int y, int color, int color2) {
         gui.drawString(font, string, x, y, color, false);
         gui.drawString(font, string, (x-1), (y-1), color2, false);
     }
@@ -31,7 +30,7 @@ public class GuiUtils {
 
     public static void drawCenteredStringShadow(GuiGraphics gui, Font font, Component string, int x, int y, int color, int color2) {
         gui.drawString(font, string, x - font.width(string) / 2, y, color, false);
-        gui.drawString(font, string, (x-1) - font.width(string) / 2, y - 1, color2, false);
+        gui.drawString(font, string, (x-1) - font.width(string) / 2, y-1, color2, false);
     }
 
     public static boolean isHovered(int x, int y, int width, int height, int mouseX, int mouseY) {

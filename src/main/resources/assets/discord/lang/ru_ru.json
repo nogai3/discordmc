@@ -14,12 +14,17 @@
   "settings.button.cancel": "Выйти",
   "settings.button.reset": "Сбросить настройки",
 
-  "settings.txt.appname": "Имена приложения",
+  "settings.txt.appname": "Имя приложения",
   "settings.txt.bottomline": "Вторая строка",
   "settings.txt.buttons": "Кнопки",
   "settings.txt.icon": "Иконка",
 
   "settings.worldname": "Имя мира",
   "settings.gameversion": "Версия игры",
-  "settings.custom": "Свой вариант"
+  "settings.custom": "Свой вариант",
+
+  "key.discord.open_settings": "Открыть настройки DiscordRPC",
+
+  "game.playing_in_world": "Играет в мире: ",
+  "game.world_dimension": " | Измерение: "
 }

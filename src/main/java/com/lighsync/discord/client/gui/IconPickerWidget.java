@@ -4,32 +4,31 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class IconPickerWidget extends AbstractWidget {
-    private final List<Identifier> icons;
-    private Identifier selected;
+    private final List<ResourceLocation> icons;
+    private ResourceLocation selected;
 
     private final int cell = 18;
     private final int pad = 4;
 
-    public IconPickerWidget(int x, int y, int width, int height, List<Identifier> icons, Identifier selected) {
+    public IconPickerWidget(int x, int y, int width, int height, List<ResourceLocation> icons, ResourceLocation selected) {
         super(x, y, width, height, Component.empty());
         this.icons = icons;
         this.selected = selected;
     }
 
-    public Identifier getSelected() {
+    public ResourceLocation getSelected() {
         return selected;
     }
 
-    public void setSelected(Identifier id) {
+    public void setSelected(ResourceLocation id) {
         this.selected = id;
     }
 
@@ -50,7 +49,7 @@ public class IconPickerWidget extends AbstractWidget {
 
             if (iy + cell > getY() + height) break;
 
-            Identifier id = icons.get(i);
+            ResourceLocation id = icons.get(i);
 
             if (id != null && id.equals(selected)) {
                 gui.fill(ix - 1, iy - 1, ix + 17, iy + 17, 0x66FFFFFF);
@@ -62,11 +61,7 @@ public class IconPickerWidget extends AbstractWidget {
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean flag) {
-        double mouseX = event.x();
-        double mouseY = event.y();
-        int button = event.button();
-
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (!this.active || !this.visible) return false;
         if (!this.isMouseOver(mouseX, mouseY)) return false;
 
@@ -93,21 +88,21 @@ public class IconPickerWidget extends AbstractWidget {
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narration) {}
 
-    public static List<Identifier> scanIcons (String modId, String texturesPath) {
+    public static List<ResourceLocation> scanIcons (String modId, String texturesPath) {
         var rm = Minecraft.getInstance().getResourceManager();
 
         var found = rm.listResources(texturesPath, p -> p.getPath().endsWith(".png"));
 
-        List<Identifier> out = new ArrayList<>();
-        for (Identifier res : found.keySet()) {
+        List<ResourceLocation> out = new ArrayList<>();
+        for (ResourceLocation res : found.keySet()) {
             String path = res.getPath();
 
             if (path.startsWith("textures/")) path = path.substring("textures/".length());
             if (path.endsWith(".png")) path = path.substring(0, path.length() - 4);
 
-            out.add(Identifier.fromNamespaceAndPath(res.getNamespace(), path));
+            out.add(ResourceLocation.fromNamespaceAndPath(res.getNamespace(), path));
         }
-        out.sort(Comparator.comparing(Identifier::toString));
+        out.sort(Comparator.comparing(ResourceLocation::toString));
         return out;
     }
 }
