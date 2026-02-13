@@ -119,7 +119,7 @@ public class SettingsScreen extends Screen {
                 yield "Main menu";
             }
             case PLAYER_NAME -> {
-                yield mc.player.getGameProfile().getName();
+                yield "Player name: " + mc.player.getGameProfile().getName();
             }
             case GAME_VERSION -> {
                 yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + mc.getLaunchedVersion() + ")";
