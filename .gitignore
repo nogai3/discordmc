@@ -1,5 +1,20 @@
-.gradle
-.idea
-build
-gralde
-run
+### Java ###
+# Compiled class file
+*.class
+
+# Log File
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Folders
+run/
+.gradle/
+.idea/
