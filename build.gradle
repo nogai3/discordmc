@@ -153,6 +153,9 @@ dependencies {
     // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
     implementation "com.google.code.gson:gson:2.8.9"
+    implementation "org.json:json:20251224"
+    implementation "com.kohlschutter.junixsocket:junixsocket-core:2.10.1"
+    runtimeOnly   "com.kohlschutter.junixsocket:junixsocket-native-common:2.10.1"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

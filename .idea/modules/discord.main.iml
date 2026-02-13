@@ -13,7 +13,7 @@
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="C:\Users\glackus\IdeaProjects\untitled3\build\createMcpToSrg\output.tsrg" />
+    <option name="mappingFile" value="D:\GitRepos\discordmc\build\createMcpToSrg\output.tsrg" />
     <option name="mcpVersion" value="official_1.21.1" />
     <option name="minecraftVersion" value="1.21.1" />
     <option name="platformVersion" value="52.1.10" />

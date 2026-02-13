@@ -1,11 +1,12 @@
 package com.lighsync.discord.client.utils;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import org.apache.commons.compress.utils.Lists;
 import org.joml.Matrix3x2fStack;
@@ -37,8 +38,8 @@ public class GuiUtils {
         return (mouseX >= x && mouseX <= x + width) && (mouseY >= y && mouseY <= y + height);
     }
 
-    public static void renderTooltip(GuiGraphics gui, Identifier location, List<MutableComponent> entries, int x, int y, int color, int maxWidth) {
-        Matrix3x2fStack poseStack = gui.pose();
+    public static void renderTooltip(GuiGraphics gui, ResourceLocation location, List<MutableComponent> entries, int x, int y, int color, int maxWidth) {
+        PoseStack poseStack = gui.pose();
 
         List<FormattedCharSequence> tooltip = Lists.newArrayList();
         int renderWidth = 0;
@@ -54,21 +55,21 @@ public class GuiUtils {
         int renderX = x + 1;
         int renderY = y - (height / 2) - 9;
 
-        poseStack.pushMatrix();
+        poseStack.pushPose();
         // drawTexturedTooltipBorder(gui, location, renderWidth, height-6, renderX, renderY+3);
 
         int yOff = 0;
-        poseStack.scale(0.5F, 0.5F);
+        poseStack.scale(0.5F, 0.5F, 0.5F);
         for (FormattedCharSequence entry : tooltip) {
             gui.drawString(Minecraft.getInstance().font, entry, (renderX + 10) * 2, (renderY + 9 + yOff) * 2 + 2, color, false);
             yOff += 5;
         }
 
-        poseStack.scale(1F, 1F);
-        poseStack.popMatrix();
+        poseStack.scale(1F, 1F, 1F);
+        poseStack.popPose();
     }
 
-    public static void drawLineFromSprite(GuiGraphics gui, Identifier location, int x, int y, int textureX, int textureY, int spriteWidth, int spriteHeight, int textureSizeX, int textureSizeY, int length) {
+    public static void drawLineFromSprite(GuiGraphics gui, ResourceLocation location, int x, int y, int textureX, int textureY, int spriteWidth, int spriteHeight, int textureSizeX, int textureSizeY, int length) {
         int leftWidth = 1;
         int rightWidth = 1;
         int middleWidth = spriteWidth - leftWidth - rightWidth;

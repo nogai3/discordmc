@@ -4,6 +4,7 @@ import com.lighsync.discord.Discord;
 import com.lighsync.discord.client.DiscordClientConfig;
 import com.lighsync.discord.handlers.ClientModHandler;
 import com.lighsync.discord.network.DiscordRPC;
+import com.lighsync.discord.network.DiscordRPCTest;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -262,12 +263,26 @@ public class SettingsScreen extends Screen {
             set(DiscordClientConfig.ICON_ID, selected.toString());
         }
 
-        DiscordRPC rpc = ClientModHandler.getRpc();
+        /*DiscordRPC rpc = ClientModHandler.getRpc();
         if (rpc != null && rpc.isStarted()) {
             String appName = appNameBox.getValue();
             String bottomLine = buildBottomLine();
 
             rpc.update(
+                    appName,
+                    bottomLine,
+                    btn1LabelBox.getValue(),
+                    btn1UrlBox.getValue(),
+                    btn2LabelBox.getValue(),
+                    btn2UrlBox.getValue()
+            );
+        }*/
+        DiscordRPCTest rpcTest = ClientModHandler.getRpcTest();
+        if (rpcTest != null && rpcTest.isStarted()) {
+            String appName = appNameBox.getValue();
+            String bottomLine = buildBottomLine();
+
+            rpcTest.sendOrUpdatePresence(
                     appName,
                     bottomLine,
                     btn1LabelBox.getValue(),

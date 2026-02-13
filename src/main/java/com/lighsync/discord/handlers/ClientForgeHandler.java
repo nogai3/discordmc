@@ -5,6 +5,7 @@ import com.lighsync.discord.client.DiscordClientConfig;
 import com.lighsync.discord.client.gui.SettingsScreen;
 import com.lighsync.discord.client.keybinds.Keybinds;
 import com.lighsync.discord.network.DiscordRPC;
+import com.lighsync.discord.network.DiscordRPCTest;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,7 +34,8 @@ public class ClientForgeHandler {
 
         if (rpcTickTimer >= 100) {
             rpcTickTimer = 0;
-            updateRPC();
+            // updateRPC();
+            // updateRPCTest();
         }
     }
 
@@ -44,37 +46,34 @@ public class ClientForgeHandler {
         Minecraft mc = Minecraft.getInstance();
 
         String appName = DiscordClientConfig.APP_NAME.get();
-        String bottomLine = buildBottomLine(mc);
+        // String bottomLine = buildBottomLine(mc);
 
-        rpc.update(
+        /*rpc.update(
                 appName,
                 bottomLine,
                 DiscordClientConfig.BUTTON_1_LABEL.get(),
                 DiscordClientConfig.BUTTON_1_URL.get(),
                 DiscordClientConfig.BUTTON_2_LABEL.get(),
-                DiscordClientConfig.BUTTON_2_LABEL.get()
-        );
+                DiscordClientConfig.BUTTON_2_URL.get()
+        );*/
     }
 
-    private static String buildBottomLine(Minecraft mc) {
-        return switch (DiscordClientConfig.BOTTOM_LINE_MODE.get()) {
-            case CUSTOM -> DiscordClientConfig.BOTTOM_LINE_CUSTOM.get();
-            case WORLD_NAME -> {
-                if (mc.level != null) yield
-                        "Playing in world: " +
-                                mc.getSingleplayerServer().getWorldData().getLevelName() +
-                                " | Dimension: " +
-                                switch(mc.level.dimension().location().toString()) {
-                                    case "minecraft:overworld" -> "Overworld";
-                                    case "minecraft:the_nether" -> "The Nether";
-                                    case "minecraft:the_end" -> "The End.";
-                                    default -> "";
-                                };
-                yield "Main menu";
-            }
-            case GAME_VERSION -> {
-                yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + mc.getLaunchedVersion() + ")";
-            }
-        };
+    private static void updateRPCTest() {
+        DiscordRPCTest rpcTest = ClientModHandler.getRpcTest();
+        if (rpcTest == null || !rpcTest.isStarted()) return;
+
+        Minecraft mc = Minecraft.getInstance();
+
+        String appName = DiscordClientConfig.APP_NAME.get();
+        // String bottomLine = buildBottomLine(mc);
+
+        /*rpcTest.update(
+                appName, bottomLine,
+                DiscordClientConfig.BUTTON_1_LABEL.get(),
+                DiscordClientConfig.BUTTON_1_URL.get(),
+                DiscordClientConfig.BUTTON_2_LABEL.get(),
+                DiscordClientConfig.BUTTON_2_URL.get()
+        );*/
     }
+
 }
