@@ -18,6 +18,7 @@ public class DiscordClientConfig {
     public static final ForgeConfigSpec.ConfigValue<String> BUTTON_2_URL;
 
     public static final ForgeConfigSpec.ConfigValue<String> ICON_ID;
+    public static final ForgeConfigSpec.ConfigValue<String> ICON_ASSET_KEY;
 
     static {
         var b = new ForgeConfigSpec.Builder();
@@ -39,7 +40,8 @@ public class DiscordClientConfig {
         BUTTON_2_LABEL =    b.define("button2Label", "Modrinth");
         BUTTON_2_URL =      b.define("button2Url", "https://modrinth.com/nogai3");
 
-        ICON_ID = b.define("iconId","discord:gui/discord/icons/default");
+        ICON_ID = b.define("iconId","discord:textures/gui/icons/default.png");
+        ICON_ASSET_KEY = b.define("iconAssetKey", "default");
 
         b.pop();
 
@@ -49,6 +51,7 @@ public class DiscordClientConfig {
     public enum BottomLineMode {
         WORLD_NAME,
         GAME_VERSION,
+        PLAYER_NAME,
         CUSTOM
     }
 }

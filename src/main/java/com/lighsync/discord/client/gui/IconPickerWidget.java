@@ -1,15 +1,21 @@
 package com.lighsync.discord.client.gui;
 
+import com.lighsync.discord.Discord;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class IconPickerWidget extends AbstractWidget {
     private final List<ResourceLocation> icons;
@@ -56,7 +62,9 @@ public class IconPickerWidget extends AbstractWidget {
                 gui.renderOutline(ix - 1, iy - 1, 18, 18, 0xFFFFFFFF);
             }
 
-            gui.blit(id, ix, iy, 0, 0, 16, 16, 16, 16);
+            if (id != null) {
+                gui.blit(id, ix, iy, 0, 0, 16, 16, 16, 16);
+            }
         }
     }
 
@@ -88,7 +96,7 @@ public class IconPickerWidget extends AbstractWidget {
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narration) {}
 
-    public static List<ResourceLocation> scanIcons (String modId, String texturesPath) {
+    /*public static List<ResourceLocation> scanIcons (String modId, String texturesPath) {
         var rm = Minecraft.getInstance().getResourceManager();
 
         var found = rm.listResources(texturesPath, p -> p.getPath().endsWith(".png"));
@@ -102,6 +110,19 @@ public class IconPickerWidget extends AbstractWidget {
 
             out.add(ResourceLocation.fromNamespaceAndPath(res.getNamespace(), path));
         }
+        out.sort(Comparator.comparing(ResourceLocation::toString));
+        return out;
+    }*/
+    public static List<ResourceLocation> scanIcons(String modId, String folderUnderTextures) {
+        ResourceManager rm = Minecraft.getInstance().getResourceManager();
+        String base = "textures/" + folderUnderTextures; // folderUnderTextures = "gui/discord/icons"
+
+        Map<ResourceLocation, ?> found = rm.listResources(
+                base,
+                rl -> rl.getNamespace().equals(modId) && rl.getPath().endsWith(".png")
+        );
+
+        List<ResourceLocation> out = new ArrayList<>(found.keySet());
         out.sort(Comparator.comparing(ResourceLocation::toString));
         return out;
     }

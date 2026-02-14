@@ -21,6 +21,7 @@
 
   "settings.worldname": "World name",
   "settings.gameversion": "Game version",
+  "settings.playername": "Player name",
   "settings.custom": "Custom",
 
   "key.discord.open_settings": "Open Discord RPC Settings",

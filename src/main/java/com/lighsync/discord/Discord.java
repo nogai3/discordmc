@@ -27,4 +27,6 @@ public class Discord {
         context.registerConfig(ModConfig.Type.CLIENT, DiscordClientConfig.SPEC);
     }
     private void commonSetup(final FMLCommonSetupEvent event) { LOGGER.info("test"); }
+
+    public static Logger getLogger() { return LOGGER; }
 }

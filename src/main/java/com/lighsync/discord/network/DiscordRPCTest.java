@@ -83,6 +83,10 @@ import com.jagrosh.discordipc.entities.DiscordBuild;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.entities.pipe.PipeStatus;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
+import com.lighsync.discord.Discord;
+import com.lighsync.discord.client.DiscordClientConfig;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.Minecraft;
 
 import java.time.OffsetDateTime;
 import java.util.concurrent.Executors;
@@ -137,26 +141,74 @@ public class DiscordRPCTest {
    public void sendOrUpdatePresence(
            String appName, String bottomLine,
            String button1Label, String button1Url,
-           String button2Label, String button2Url
+           String button2Label, String button2Url,
+           String largeAssetKey
    ) {
         if (!isStarted()) return;
 
        RichPresence.Builder b = new RichPresence.Builder()
                .setDetails(appName)
                .setState(bottomLine)
-               .setStartTimestamp(OffsetDateTime.now())
-               .setLargeImage("canary-large", "Discord Canary")
-               .setSmallImage("ptb-small", "Discord PTB");
+               .setStartTimestamp(startTime != null ? startTime : (startTime = OffsetDateTime.now()));
+
+       // String largeAssetKey = DiscordClientConfig.ICON_ASSET_KEY.get();
+       if (largeAssetKey != null && !largeAssetKey.isBlank()) {
+           b.setLargeImage(largeAssetKey, buildBottomLine());
+       } else {
+           b.setLargeImage("default", buildBottomLine());
+       }
                // .setParty("party1234", 1, 6)
                // .setMatchSecret("xyzzy")
                // .setJoinSecret("join")
                // .setSpectateSecret("look");
 
-       // if (button1Label != null && button1Url != null) b.addButton(button1Label, button1Url);
-       // if (button2Label != null && button2Url != null) b.addButton(button2Label, button2Url);
+       if (button1Label != null && button1Url != null && !button1Label.isBlank() && !button1Url.isBlank()) b.addButton(button1Label, button1Url);
+       if (button2Label != null && button2Url != null && !button2Label.isBlank() && !button2Url.isBlank()) b.addButton(button2Label, button2Url);
 
        client.sendRichPresence(b.build());
    }
+
+    private static String buildBottomLine() {
+        Minecraft mc = Minecraft.getInstance();
+        return switch (DiscordClientConfig.BOTTOM_LINE_MODE.get()) {
+            case CUSTOM -> DiscordClientConfig.BOTTOM_LINE_CUSTOM.get();
+            case WORLD_NAME -> {
+                if (mc.level != null && mc.getSingleplayerServer() != null) {
+                    yield "Playing in world: " +
+                            mc.getSingleplayerServer().getWorldData().getLevelName() +
+                            " | Dimension: " + parseDimension(mc);
+                }
+                yield "Main menu";
+            }
+            case PLAYER_NAME -> {
+                yield "Player name: " + mc.player.getGameProfile().getName();
+            }
+            case GAME_VERSION -> {
+                yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + mc.getLaunchedVersion() + ")";
+            }
+        };
+    }
+
+    private static String parseDimension(Minecraft mc) {
+        mc = Minecraft.getInstance();
+        return switch (mc.level.dimension().location().toString()) {
+            case "minecraft:overworld" -> "Overworld";
+            case "minecraft:the_nether" -> "The Nether";
+            case "minecraft:the_end" -> "The End.";
+            default -> "";
+        };
+    }
+
+   /*public void testOnce() {
+        RichPresence.Builder b = new RichPresence.Builder()
+                .setDetails("TEST")
+                .setState("ICON CHECK")
+                .setStartTimestamp(OffsetDateTime.now())
+                .setLargeImage("enderman", "Enderman")
+                        .s
+
+        client.sendRichPresence(b.build());
+   }*/
 
    public void disconnect() {
         stopAutoUpdate();

@@ -3,6 +3,7 @@ package com.lighsync.discord.client.gui;
 import com.lighsync.discord.Discord;
 import com.lighsync.discord.client.DiscordClientConfig;
 import com.lighsync.discord.handlers.ClientModHandler;
+import com.lighsync.discord.network.DiscordAssetMap;
 import com.lighsync.discord.network.DiscordRPC;
 import com.lighsync.discord.network.DiscordRPCTest;
 import net.minecraft.SharedConstants;
@@ -51,52 +52,52 @@ public class SettingsScreen extends Screen {
         int w = 260;
         int h = 20;
 
-        this.appNameBox = new EditBox(this.font, cx - w/2, y+5, w, h, Component.translatable("settings.appname"));
+        this.appNameBox = new EditBox(this.font, cx - w / 2, y + 5, w, h, Component.translatable("settings.appname"));
         this.appNameBox.setValue(DiscordClientConfig.APP_NAME.get());
         this.addRenderableWidget(appNameBox);
 
-        y += 28+5;
+        y += 28 + 5;
 
         this.bottomModeBtn = CycleButton.<DiscordClientConfig.BottomLineMode>builder(SettingsScreen::modeText)
                 .withValues(DiscordClientConfig.BottomLineMode.values())
                 .withInitialValue(DiscordClientConfig.BOTTOM_LINE_MODE.get())
-                .create(cx - w/2, y+5, 140, h, Component.translatable("settings.bottomline"));
+                .create(cx - w / 2, y + 5, 140, h, Component.translatable("settings.bottomline"));
         this.addRenderableWidget(this.bottomModeBtn);
 
-        this.bottomCustomBox = new EditBox(this.font, cx - w/2 + 150, y+5, w - 150, h, Component.translatable("settings.custombottomline"));
+        this.bottomCustomBox = new EditBox(this.font, cx - w / 2 + 150, y + 5, w - 150, h, Component.translatable("settings.custombottomline"));
         this.bottomCustomBox.setValue(DiscordClientConfig.BOTTOM_LINE_CUSTOM.get());
         this.addRenderableWidget(this.bottomCustomBox);
 
         this.lastMode = this.bottomModeBtn.getValue();
         updateEnabledStates();
 
-        y += 28+5;
+        y += 28 + 5;
 
-        this.btn1LabelBox = new EditBox(this.font, cx -w/2, y+5, 90, h, Component.translatable("settings.button1.label"));
+        this.btn1LabelBox = new EditBox(this.font, cx - w / 2, y + 5, 90, h, Component.translatable("settings.button1.label"));
         this.btn1LabelBox.setValue(DiscordClientConfig.BUTTON_1_LABEL.get());
         this.addRenderableWidget(this.btn1LabelBox);
 
-        this.btn1UrlBox = new EditBox(this.font, cx - w/2 + 95, y+5, w - 95, h, Component.translatable("settings.button1.url"));
+        this.btn1UrlBox = new EditBox(this.font, cx - w / 2 + 95, y + 5, w - 95, h, Component.translatable("settings.button1.url"));
         this.btn1UrlBox.setValue(DiscordClientConfig.BUTTON_1_URL.get());
         this.addRenderableWidget(this.btn1UrlBox);
 
-        y += 24+5;
+        y += 24 + 5;
 
-        this.btn2LabelBox = new EditBox(this.font, cx - w/2, y+5, 90, h, Component.translatable("settings.button2.label"));
+        this.btn2LabelBox = new EditBox(this.font, cx - w / 2, y + 5, 90, h, Component.translatable("settings.button2.label"));
         this.btn2LabelBox.setValue(DiscordClientConfig.BUTTON_2_LABEL.get());
         this.addRenderableWidget(this.btn2LabelBox);
 
-        this.btn2UrlBox = new EditBox(this.font, cx - w/2 + 95, y+5, w - 95, h, Component.translatable("settings.button2.url"));
+        this.btn2UrlBox = new EditBox(this.font, cx - w / 2 + 95, y + 5, w - 95, h, Component.translatable("settings.button2.url"));
         this.btn2UrlBox.setValue(DiscordClientConfig.BUTTON_2_URL.get());
         this.addRenderableWidget(this.btn2UrlBox);
 
-        y += 30+5;
+        y += 30 + 5;
 
-        List<ResourceLocation> icons = IconPickerWidget.scanIcons(Discord.MOD_ID, "textures/gui/discord/icons");
-        this.iconPicker = new IconPickerWidget(cx - w/2, y+5, w, 56, icons, ResourceLocation.tryParse(DiscordClientConfig.ICON_ID.get()));
+        List<ResourceLocation> icons = IconPickerWidget.scanIcons(Discord.MOD_ID, "gui/icons");
+        this.iconPicker = new IconPickerWidget(cx - w / 2, y + 5, w, 56, icons, ResourceLocation.tryParse(DiscordClientConfig.ICON_ID.get()));
         this.addRenderableWidget(this.iconPicker);
 
-        y += 70+5;
+        y += 70 + 5;
 
         this.saveBtn = this.addRenderableWidget(Button.builder(Component.translatable("settings.button.save"), b -> onSave()).bounds(cx - 100, y, 70, 20).build());
         this.addRenderableWidget(Button.builder(Component.translatable("settings.button.cancel"), b -> onCancel()).bounds(cx - 25, y, 70, 20).build());
@@ -106,11 +107,11 @@ public class SettingsScreen extends Screen {
     }
 
     private String buildBottomLine() {
-        var mode =  bottomModeBtn.getValue();
+        var mode = bottomModeBtn.getValue();
+        var mc = Minecraft.getInstance();
         return switch (mode) {
             case CUSTOM -> bottomCustomBox.getValue();
             case WORLD_NAME -> {
-                var mc =  Minecraft.getInstance();
                 if (mc.level != null && mc.getSingleplayerServer() != null) {
                     yield "Playing in world: " +
                             mc.getSingleplayerServer().getWorldData().getLevelName() +
@@ -118,8 +119,11 @@ public class SettingsScreen extends Screen {
                 }
                 yield "Main menu";
             }
+            case PLAYER_NAME -> {
+                yield "Player name: " + mc.player.getGameProfile().getName();
+            }
             case GAME_VERSION -> {
-                yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + this.minecraft.getLaunchedVersion() + ")";
+                yield "Minecraft " + SharedConstants.getCurrentVersion().getName() + " (" + mc.getLaunchedVersion() + ")";
             }
         };
     }
@@ -137,6 +141,7 @@ public class SettingsScreen extends Screen {
         return switch (m) {
             case WORLD_NAME -> Component.translatable("settings.worldname");
             case GAME_VERSION -> Component.translatable("settings.gameversion");
+            case PLAYER_NAME -> Component.translatable("settings.playername");
             case CUSTOM -> Component.translatable("settings.custom");
         };
     }
@@ -233,10 +238,10 @@ public class SettingsScreen extends Screen {
 
         gui.drawCenteredString(this.font, this.title, this.width / 2, 10, 0xFFFFFF);
 
-        gui.drawString(this.font, Component.translatable("settings.txt.appname"), this.width/2 - 130, 20+3, 0xA0A0A0);
-        gui.drawString(this.font, Component.translatable("settings.txt.bottomline"), this.width/2 - 130, 48+9, 0xA0A0A0);
-        gui.drawString(this.font, Component.translatable("settings.txt.buttons"), this.width/2 - 130, 76+14, 0xA0A0A0);
-        gui.drawString(this.font, Component.translatable("settings.txt.icon"), this.width/2 - 130, 128+25, 0xA0A0A0);
+        gui.drawString(this.font, Component.translatable("settings.txt.appname"), this.width / 2 - 130, 20 + 3, 0xA0A0A0);
+        gui.drawString(this.font, Component.translatable("settings.txt.bottomline"), this.width / 2 - 130, 48 + 9, 0xA0A0A0);
+        gui.drawString(this.font, Component.translatable("settings.txt.buttons"), this.width / 2 - 130, 76 + 14, 0xA0A0A0);
+        gui.drawString(this.font, Component.translatable("settings.txt.icon"), this.width / 2 - 130, 128 + 25, 0xA0A0A0);
 
         /*if (this.iconPicker.isMouseOver(mouseX, mouseY)) {
             gui.renderTooltip(
@@ -263,24 +268,12 @@ public class SettingsScreen extends Screen {
         set(DiscordClientConfig.BUTTON_2_URL, btn2UrlBox.getValue());
 
         ResourceLocation selected = iconPicker != null ? iconPicker.getSelected() : null;
+        String assetKey = DiscordAssetMap.getAssetKey(selected);
         if (selected != null) {
             set(DiscordClientConfig.ICON_ID, selected.toString());
+            if (assetKey != null) set(DiscordClientConfig.ICON_ASSET_KEY, assetKey);
         }
 
-        /*DiscordRPC rpc = ClientModHandler.getRpc();
-        if (rpc != null && rpc.isStarted()) {
-            String appName = appNameBox.getValue();
-            String bottomLine = buildBottomLine();
-
-            rpc.update(
-                    appName,
-                    bottomLine,
-                    btn1LabelBox.getValue(),
-                    btn1UrlBox.getValue(),
-                    btn2LabelBox.getValue(),
-                    btn2UrlBox.getValue()
-            );
-        }*/
         DiscordRPCTest rpcTest = ClientModHandler.getRpcTest();
         if (rpcTest != null && rpcTest.isStarted()) {
             String appName = appNameBox.getValue();
@@ -292,19 +285,14 @@ public class SettingsScreen extends Screen {
                     btn1LabelBox.getValue(),
                     btn1UrlBox.getValue(),
                     btn2LabelBox.getValue(),
-                    btn2UrlBox.getValue()
+                    btn2UrlBox.getValue(),
+                    DiscordClientConfig.ICON_ASSET_KEY.get()
             );
         }
 
         Minecraft.getInstance().setScreen(parent);
+
     }
-
-    /*private void saveClientConfig() {
-        ModContainer container = ModList.get().getModContainerById(Discord.MOD_ID).orElse(null);
-        if (container == null) return;
-
-        ModConfig cfg = container.getModInfo().getConfig();
-    }*/
 
     private void onCancel() {
         Minecraft.getInstance().setScreen(parent);
@@ -320,13 +308,13 @@ public class SettingsScreen extends Screen {
         this.btn2LabelBox.setValue("Modrinth");
         this.btn2UrlBox.setValue("https://modrinth.com/nogai3");
 
-        this.iconPicker.setSelected(ResourceLocation.tryParse("discord:gui/discord/icons/default"));
+        this.iconPicker.setSelected(ResourceLocation.tryParse("discord:textures/gui/icons/default.png"));
     }
 
     private static <T> void set(ForgeConfigSpec.ConfigValue<T> v, T value) {
         v.set(value);
     }
-    
+
     private static <E extends Enum<E>> void setEnum(ForgeConfigSpec.EnumValue<E> v, E value) {
         v.set(value);
     }

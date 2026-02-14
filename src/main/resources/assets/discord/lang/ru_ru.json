@@ -21,6 +21,7 @@
 
   "settings.worldname": "Имя мира",
   "settings.gameversion": "Версия игры",
+  "settings.playername": "Имя игрока (ник)",
   "settings.custom": "Свой вариант",
 
   "key.discord.open_settings": "Открыть настройки DiscordRPC",
