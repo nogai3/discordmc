@@ -43,11 +43,12 @@ public class RichPresence
     private final String joinSecret;
     private final String spectateSecret;
     private final boolean instance;
+    private final JSONArray buttons;
     
     public RichPresence(String state, String details, OffsetDateTime startTimestamp, OffsetDateTime endTimestamp, 
             String largeImageKey, String largeImageText, String smallImageKey, String smallImageText, 
             String partyId, int partySize, int partyMax, String matchSecret, String joinSecret, 
-            String spectateSecret, boolean instance)
+            String spectateSecret, boolean instance, JSONArray buttons)
     {
         this.state = state;
         this.details = details;
@@ -64,6 +65,7 @@ public class RichPresence
         this.joinSecret = joinSecret;
         this.spectateSecret = spectateSecret;
         this.instance = instance;
+        this.buttons = buttons;
     }
 
     /**
@@ -77,7 +79,7 @@ public class RichPresence
      */
     public JSONObject toJson()
     {
-        return new JSONObject()
+        JSONObject o = new JSONObject()
                 .put("state", state)
                 .put("details", details)
                 .put("timestamps", new JSONObject()
@@ -91,11 +93,26 @@ public class RichPresence
                 .put("party", partyId==null ? null : new JSONObject()
                         .put("id", partyId)
                         .put("size", new JSONArray().put(partySize).put(partyMax)))
-                .put("secrets", new JSONObject()
-                        .put("join", joinSecret)
-                        .put("spectate", spectateSecret)
-                        .put("match", matchSecret))
                 .put("instance", instance);
+
+        boolean hasButtons = buttons != null && buttons.length() > 0;
+        boolean hasSecrets =
+                (joinSecret != null && !joinSecret.isBlank()) ||
+                (spectateSecret != null && !spectateSecret.isBlank()) ||
+                (matchSecret != null && !matchSecret.isBlank());
+
+        if (hasButtons)
+        {
+            o.put("buttons", buttons);
+        }
+        else if (hasSecrets)
+        {
+            o.put("secrets", new JSONObject()
+                    .put("join", joinSecret)
+                    .put("spectate", spectateSecret)
+                    .put("match", matchSecret));
+        }
+        return o;
     }
 
     /**
@@ -121,6 +138,7 @@ public class RichPresence
         private String joinSecret;
         private String spectateSecret;
         private boolean instance;
+        private JSONArray buttons = new JSONArray();
 
         /**
          * Builds the {@link RichPresence} from the current state of this builder.
@@ -132,7 +150,7 @@ public class RichPresence
             return new RichPresence(state, details, startTimestamp, endTimestamp, 
                     largeImageKey, largeImageText, smallImageKey, smallImageText, 
                     partyId, partySize, partyMax, matchSecret, joinSecret, 
-                    spectateSecret, instance);
+                    spectateSecret, instance, buttons);
         }
 
         /**
@@ -158,6 +176,18 @@ public class RichPresence
         public Builder setDetails(String details)
         {
             this.details = details;
+            return this;
+        }
+
+        public Builder addButton(String label, String url)
+        {
+            if (buttons.length() < 2)
+            {
+                buttons.put(new JSONObject()
+                        .put("label", label)
+                        .put("url", url)
+                );
+            }
             return this;
         }
 

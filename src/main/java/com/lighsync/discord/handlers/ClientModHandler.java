@@ -3,6 +3,7 @@ package com.lighsync.discord.handlers;
 import com.lighsync.discord.Discord;
 import com.lighsync.discord.client.DiscordClientConfig;
 import com.lighsync.discord.client.keybinds.Keybinds;
+import com.lighsync.discord.network.DiscordAssetMap;
 import com.lighsync.discord.network.DiscordRPC;
 import com.lighsync.discord.network.DiscordRPCTest;
 import net.minecraft.SharedConstants;
@@ -25,6 +26,7 @@ public class ClientModHandler {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(DiscordAssetMap::load);
         event.enqueueWork(() -> {
             /*rpc = new DiscordRPC(1471601684454309920L);
             rpc.start(
@@ -43,7 +45,8 @@ public class ClientModHandler {
                         DiscordClientConfig.BUTTON_1_LABEL.get(),
                         DiscordClientConfig.BUTTON_1_URL.get(),
                         DiscordClientConfig.BUTTON_2_LABEL.get(),
-                        DiscordClientConfig.BUTTON_2_URL.get()
+                        DiscordClientConfig.BUTTON_2_URL.get(),
+                        DiscordClientConfig.ICON_ASSET_KEY.get()
                 );
             });
         });
