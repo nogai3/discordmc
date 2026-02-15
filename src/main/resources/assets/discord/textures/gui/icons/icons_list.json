@@ -3,8 +3,11 @@
   "discord:textures/gui/icons/enderman.png": "enderman",
   "discord:textures/gui/icons/woodshield_old.png": "woodshield_old",
   "discord:textures/gui/icons/grassblock.png": "grassblock",
+  "discord:textures/gui/icons/grassblock_legacy.png": "grassblock_legacy",
+  "discord:textures/gui/icons/grassblock_prealpha.png": "grassblock_prealpha",
+  "discord:textures/gui/icons/lsynclogo.png": "lsynclogo",
   "discord:textures/gui/icons/bblogo.png": "bblogo",
-  "discord/textures/gui/icons/glackus_head.png": "glackus_head",
-  "discord/textures/gui/icons/glackus_pfp.png": "glackus_pfp",
-  "discord/textures/gui/icons/glackus_cubehead.png": "glackus_cubehead"
+  "discord:textures/gui/icons/glackus_head.png": "glackus_head",
+  "discord:textures/gui/icons/glackus_pfp.png": "glackus_pfp",
+  "discord:textures/gui/icons/glackus_cubehead.png": "glackus_cubehead"
 }
