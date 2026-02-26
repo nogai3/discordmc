@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 @Mod(Discord.MOD_ID)
 public class Discord {
     public static final String MOD_ID = "discord";
-    public static final String GAME_VERSION_FROM_SHARED_CONSTANTS = SharedConstants.getCurrentVersion().toString();
+    public static final String GAME_VERSION_FROM_SHARED_CONSTANTS = "1.21.1";
     public static final String GAME_VERSION = "1.21.1";
     private static final Logger LOGGER = LogUtils.getLogger();
 
